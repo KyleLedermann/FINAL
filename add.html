@@ -12,6 +12,16 @@
 
 <input type="visible" id="entryPicture">
 <img id="imgPreview" class="imgDisplay">
+
+    <a href="" data-role="button" data-icon="star" data-theme="e" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</a>
+        <a href="" data-role="button" data-icon="star" data-theme="e" onclick="capturePhoto();">Capture Photo</a>
+  
+        <img style="display:none;width:100%;" id="smallImage" src="" />
+        <img style="display:none;width:100%;" id="largeImage" src="" />
+        <button data-icon="check" data-iconpos="right" data-theme="b" id="takePicture">Take photo</button>	   
+
+
+
 <button id="takePicture">Add Picture</button>
 
 <button id="addEntrySubmit">Save</button>
