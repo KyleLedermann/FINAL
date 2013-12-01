@@ -7,6 +7,28 @@
 
  <script type="text/javascript" charset="utf-8">
 
+window.onload=function()
+{
+	document.getElementById("btnStore").addEventListener('click', storeData,false);
+	document.getElementById("btnLoadData").addEventListener('click', loadData,false);
+	}
+	
+	function storeData()
+	{
+		var name = document.getElementById('name').value;
+		var email = document.getElementById('email').value;
+		
+		localStorage.setItem('name', name);
+		localStorage.setItem('email', email);
+	}
+		
+		function loadData()
+		{
+			var name = localStorage.getItem('name');
+			var name = localStorage.getItem('email');
+			alert(name + " " + email);
+		}
+		
     var pictureSource;   // picture source
     var destinationType; // sets the format of returned value
 
@@ -93,28 +115,7 @@
     }
 
 
-window.onload=function()
-{
-	document.getElementById("btnStore").addEventListener('click', storeData,false);
-	document.getElementById("btnLoadData").addEventListener('click', loadData,false);
-	}
-	
-	function storeData()
-	{
-		var name = document.getElementById('name').value;
-		var email = document.getElementById('email').value;
-		
-		localStorage.setItem('name', name);
-		localStorage.setItem('email', email);
-	}
-		
-		function loadData()
-		{
-			var name = localStorage.getItem('name');
-			var name = localStorage.getItem('email');
-			alert(name + " " + email);
-		}
-		</script>
+</script>
 
 <title>STORE</title>
 </head>
