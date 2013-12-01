@@ -1,11 +1,35 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>Capture Photo</title>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    <script type="text/javascript" charset="utf-8">
 
+ <script type="text/javascript" charset="utf-8">
+
+window.onload=function()
+{
+	document.getElementById("btnStore").addEventListener('click', storeData,false);
+	document.getElementById("btnLoadData").addEventListener('click', loadData,false);
+	}
+	
+	function storeData()
+	{
+		var name = document.getElementById('name').value;
+		var email = document.getElementById('email').value;
+		
+		localStorage.setItem('name', name);
+		localStorage.setItem('email', email);
+	}
+		
+		function loadData()
+		{
+			var name = localStorage.getItem('name');
+			var name = localStorage.getItem('email');
+			alert(name + " " + email);
+		}
+		}
+		
     var pictureSource;   // picture source
     var destinationType; // sets the format of returned value
 
@@ -91,14 +115,23 @@
       alert('Failed because: ' + message);
     }
 
-    </script>
-  </head>
-  <body>
+
+</script>
+
+<title>STORE</title>
+</head>
+<body>
+<label for="name">Name</label>
+<input type="text" id="name" /><br />
+<label for="email">email</label>
+<input type="text" id="email" /><br />
+<button id="btnStore">STORE</button>
+<button id="btnLoadData">Load Data</button>
     <button onclick="capturePhoto();">Capture Photo</button> <br>
     <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
     <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
     <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
-  </body>
+</body>
 </html>
