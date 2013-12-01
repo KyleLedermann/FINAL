@@ -94,13 +94,30 @@ $(document).on("pageload", "#entryPage", function(e) {
 		$("#entryDisplay").html(content);
 	});
 });
+function onPhotoURISuccess(imageURI) {
+    // Uncomment to view the image file URI
+    // console.log(imageURI);
+
+    // Get image handle
+    //
+    var largeImage = document.getElementById('largeImage');
+
+    // Unhide image elements
+    //
+    largeImage.style.display = 'block';
+
+    // Show the captured photo
+    // The inline CSS rules are used to resize the image
+    //
+    largeImage.src = imageURI;
+}
 
 $(document).on("pageload", "#addPage", function(e) {
 
-	function onCamSuccess(imgdata) {
-		console.log(imgdata);
-		$("#entryPicture").val(imgdata);
-		$("#imgPreview").attr("src", imgdata);
+	function onPhotoDataSuccess(imageData) {
+		console.log(imagedata);
+		$("#entryPicture").val(imagedata);
+		$("#imgPreview").attr("src", imagedata);
 	}
 	
 	function onCamFail(e) {
@@ -111,7 +128,9 @@ $(document).on("pageload", "#addPage", function(e) {
 	$("#takePicture").on("touchstart", function(e) {
 		e.preventDefault();
 		
-		navigator.camera.getPicture(onCamSuccess, onCamFail, {quality:50, destinationType:Camera.DestinationType.FILE_URI});
+		 navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+        quality: 50,
+        destinationType: destinationType.DATA_URL
 	});
 	
 	$("#addEntrySubmit").on("touchstart", function(e) {
@@ -121,6 +140,11 @@ $(document).on("pageload", "#addPage", function(e) {
 		var body = $("#entryBody").val();
 		var img = $("#entryPicture").val();
 		//store!
+		 navigator.camera.getPicture(onPhotoURISuccess, onFail, {
+        quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: source
+    });
 		diary.saveEntry({title:title,body:body,image:img}, function() {
 			pageLoad("main.html");
 		});
