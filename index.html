@@ -1,21 +1,123 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name = "format-detection" content = "telephone=no"/>
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width;" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title></title>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/zepto.min.js"></script>
-        <script type="text/javascript" src="js/diary.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-		 <script type="text/javascript" src="js/camera.js"></script>
-    </head>
-    <body>
+<head>
+<meta charset="utf-8">
+<title>jQuery Mobile Web App</title>
 
-        <div id="mainView">
-        </div>
+<link href="jquery-mobile/jquery.mobile-1.0a3.min.css" rel="stylesheet" type="text/css"/>
+<link href="css/style.css" rel="stylesheet" type="text/css"/>
+<script src="jquery-mobile/jquery-1.5.min.js" type="text/javascript"></script>
+<script src="jquery-mobile/jquery.mobile-1.0a3.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/fileTransfer.js"></script>
+<script type="text/javascript" src="js/Connection.js"></script>
+<script type="text/javascript" src="js/camera.js"></script>
+<script type="text/javascript" src="js/geolocation.js"></script>
+<script type="text/javascript" src="js/EventDetail.js"></script>
+<script type="text/javascript" src="js/Event_local.js"></script>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" /> 
+
+<script type="text/javascript" src="js/googlemap.js"></script>
+
+</head> 
+<body onload="displayData();"> 
+<!-- Intro page -->
+<div data-role="page" id="page">
+	<div data-role="header">
+		<h1><img src="img/fsu.png" width="50" height="50"><br>Welcome to <br>FanEvents APP</h1>
+	</div>
+	<div data-role="content">	
+		<ul data-role="listview" id="menu" data-inset="true">
+			<li><a href="#" onclick="go_open('page2')">View All Events</a></li>
+            <li><a href="#page3">Add New Event</a></li>
+			<li>Note:This app works in wifi-connectivity</li>
+		</ul>
+
+        <a href="tel:226-236-5024" data-role="button" data-icon="star" data-theme="e">Call A-Team</a>
+        <button data-icon="check" data-iconpos="right" data-theme="b">Face Book</button>		
+	</div><BR>
+	<div data-role="footer" class="footer">
+		<div class="copy">&copy;2013 A-Team</div>
+	</div>
+</div>
+
+<!-- List page -->
+<div data-role="page" id="page2">
+	<div data-role="header">
+		<h1>Event list</h1>		
+	</div>
+	<div data-role="content">
+    <div id='EventList'></div>
+	<!--<ul data-role='listview' id='list' data-theme='c'>	
         
-    </body>
+    </ul>-->  
+	</div>
+	<div data-role="footer" class="footer">
+		<div class="copy">&copy;2013 A-Team</div>
+	</div>
+</div>
+
+<!-- Add Event page -->
+<div data-role="page" id="page3">
+	<div data-role="header">
+		<h1>Add New Event</h1>
+	</div>
+    <div data-role="content">	
+	<div data-role="fieldcontain">    
+	    Register    <input type="text" name="Register" id="txtRegister"/> <br />
+        Password    <input type="password" name="Password" id="txtPassword"/> <br />
+        Mobile      <input type="tel" id="txtMobile" name="Mobile"/> <br />
+        EventName   <input type="text" id="txtEventName" name="EventName"/> <br />
+        From Date 	<input type="date" id="txtStartDate" name="StartDate"/><br />
+		To Date		<input type="date" id="txtEndDate" name="EndDate"/> <br />
+        Location    <input type="text" id="txtLocation" name="Location"/> <br />
+        Description <input type="text" id="txtDescription" name="Description" /> <br />
+        
+        <a href="" data-role="button" data-icon="star" data-theme="e" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</a>
+        <a href="" data-role="button" data-icon="star" data-theme="e" onclick="capturePhoto();">Capture Photo</a>
+  
+        <img style="display:none;width:100%;" id="smallImage" src="" />
+        <img style="display:none;width:100%;" id="largeImage" src="" />
+        <button data-icon="check" data-iconpos="right" data-theme="b" onclick="addEvent();">Save on sever</button>	   
+ 	</div>
+    </div>
+	<div data-role="footer" class="footer">
+		<div class="copy">&copy;2013 A-Team</div>
+	</div>
+</div>
+
+<!-- View Event Detail -->
+<div data-role="page" id="page4">
+	<div data-role="header">
+		<h1>Event Detail</h1>
+	</div>
+	<div data-role="content">	
+		 <div id="eventdetail">
+		 </div>
+		 <a href="" data-role="button" data-icon="star" data-theme="e" id="view_location">View Location</a>
+	</div>
+	<div data-role="footer" class="footer">
+		<div class="copy">&copy;2013 A-Team</div>
+	</div>
+</div>
+
+<!-- View Event Location -->
+<div data-role="page" id="page5">
+	<div data-role="header">
+		<h1>Event Location</h1>
+	</div>
+	<div data-role="content">
+		<p id="geolocation">Finding geolocation...</p>	
+		<div id="map_canvas">
+		</div>
+	</div>
+	<div data-role="footer" class="footer">
+		<div class="copy">&copy;2013 A-Team</div>
+	</div>
+</div>
+
+</body>
 </html>
