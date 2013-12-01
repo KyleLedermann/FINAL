@@ -29,8 +29,8 @@ function onDeviceReady() {
     pictureSource=navigator.camera.PictureSourceType;
     destinationType = navigator.camera.DestinationType;
 
-    //network
-    checkConnection();
+	populateDB(tx)
+  
 
     //geo location
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
